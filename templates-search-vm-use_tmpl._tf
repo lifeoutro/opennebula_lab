@@ -1,0 +1,32 @@
+variable "astra_template" {
+    description = " enter astra template to find"
+}
+
+data "opennebula_templates" "test1" {
+  name_regex = var.astra_template
+}
+
+output "fnd_tmpl" {
+    value = data.opennebula_templates.test1.templates[0].id
+}
+
+
+resource "opennebula_virtual_machine" "example" {
+  count = 1
+name        = "td-${count.index}"
+  description = "VM"
+  cpu         = 0.21
+  vcpu        = 2
+  memory      = 2048
+context = {
+    NETWORK      = "YES"
+    HOSTNAME     = "$NAME"
+  }
+
+template_id = data.opennebula_templates.test1.templates[0].id
+
+tags = {
+    environment = "example"
+  }
+
+}

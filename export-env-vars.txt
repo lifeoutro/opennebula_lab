@@ -1,0 +1,5 @@
+export OPENNEBULA_ENDPOINT="http://leader.test02.loc:2633/RPC2"
+export OPENNEBULA_FLOW_ENDPOINT="http://leader.test02.loc:2474"
+export OPENNEBULA_USERNAME="brestmaster"
+export OPENNEBULA_PASSWORD="26a8b701579f0157ede5e6cb0617f7bed218320d372c0c83903a874128e0da63"
+export OPENNEBULA_INSECURE="true"
