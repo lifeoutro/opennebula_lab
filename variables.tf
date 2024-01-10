@@ -33,3 +33,7 @@ variable "termidesk_distributed" {
 variable "create_blank_ceph_disk" {
     default = [true, 30*1024,false]
 }
+
+variable "attach_blank_disk" {
+    default = true
+}
