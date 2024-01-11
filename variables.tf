@@ -37,7 +37,7 @@ variable "default_images_datastore_id" {
 }
 
 variable "system_volume_sizeMB" {
-    default = 29000
+    default = 30*1024
     }
 
 
