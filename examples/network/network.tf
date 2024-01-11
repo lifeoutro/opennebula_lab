@@ -11,7 +11,7 @@ resource "opennebula_virtual_network" "test_v_net" {
   }
 }
 
-resource "opennebula_virtual_network_address_range" "example" {
+resource "opennebula_virtual_network_address_range" "test_v_net_range" {
   virtual_network_id = opennebula_virtual_network.test_v_net.id
   ar_type            = "IP4"
   mac                = "02:00:ac:10:64:6e"

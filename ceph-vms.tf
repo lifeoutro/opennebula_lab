@@ -1,6 +1,6 @@
 locals {
-     templateid = opennebula_template.a174t.id
-     termidesk = flatten([for item in var.termidesk_distributed : [
+//     templateid = opennebula_template.a174t.id
+     ceph = flatten([for item in var.ceph_vms : [
             for c in range(1,item["count"] + 1) : 
              {"name" = "${item["name"]}${c}"
               "cpu" = "${item["cpu"]}"
@@ -11,20 +11,16 @@ locals {
              }             
             ]
           ])
-  defaultdatastoreid = var.default_system_datastore
-  ssddatastoreid = var.ssd_system_datastore
-  hdddatastoreid = var.hdd_system_datastore
-
 }
 
 /*
-output "tdd" {
-    value = local.termidesk
+output "out_ceph" {
+    value = local.ceph
 }
 */
 
-resource "opennebula_virtual_machine" "tdvms" {
-  for_each = {for vm in local.termidesk: vm.name => vm if var.create_termidesk_vms}
+resource "opennebula_virtual_machine" "cephvms" {
+  for_each = {for vm in local.ceph: vm.name => vm if var.create_ceph_vms}
   name        = each.value.name
   description = each.value.description
   cpu         = each.value.cpu
@@ -35,6 +31,25 @@ context = {
     NETWORK      = "YES"
     HOSTNAME     = each.value.name
   }
+
+os {
+    arch = "x86_64"
+    boot = "disk0"
+  }
+
+disk {
+    image_id = opennebula_image.images[0].id
+    size     = var.system_volume_sizeMB
+    driver   = "qcow2"
+  }
+
+dynamic "disk" {
+  for_each = var.attach_additional_disk
+  content {
+    image_id = opennebula_image.blank_base[0].id 
+    size     = disk.value
+  }
+}
 
 template_id = local.templateid
 

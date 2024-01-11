@@ -22,12 +22,14 @@ os {
     arch = "x86_64"
     boot = "disk0"
   }
+
 disk {
     image_id = opennebula_image.images[0].id
     size     = var.system_volume_sizeMB
-    target   = "vda"
     driver   = "qcow2"
+    target   = "vda"
   }
+
 nic {
     model           = "virtio"
     network_id      = opennebula_virtual_network.default_nw.id
@@ -65,12 +67,15 @@ os {
     arch = "x86_64"
     boot = "disk0"
   }
+
 disk {
     image_id = opennebula_image.images[1].id
     size     = var.system_volume_sizeMB
     target   = "vda"
     driver   = "qcow2"
   }
+
+
 nic {
     model           = "virtio"
     network_id      = opennebula_virtual_network.default_nw.id
