@@ -59,7 +59,7 @@ variable "create_blank_disk" {
 }
 
 variable "attach_additional_disk" {
-    default = [30*1024,25*1024]
+    default = [10*1024,10*1024,10*1024]
 }
 
 variable "create_ceph_vms" {
@@ -68,6 +68,6 @@ variable "create_ceph_vms" {
 
 // datastore = "" - will use default datastore
 variable "ceph_vms" {
-    default = [{"count" = 3, "name" = "ceph", "cpu" = 0.3, "vcpu" = 2,"memory" = 4*1024, "description" = "Ceph mon,mgr,osd", "datastore" = ""}
+    default = [{"count" = 0, "name" = "ceph", "cpu" = 0.3, "vcpu" = 2,"memory" = 4*1024, "description" = "Ceph mon,mgr,osd", "datastore" = "ssd"}
                  ]
     }

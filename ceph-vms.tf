@@ -51,6 +51,17 @@ dynamic "disk" {
   }
 }
 
+nic {
+    model           = "virtio"
+    network_id      = opennebula_virtual_network.inet.id
+
+  }
+
+nic {
+    model           = "virtio"
+    network_id      = opennebula_virtual_network.default_nw.id 
+  }
+
 template_id = local.templateid
 
 }
